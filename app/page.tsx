@@ -1,103 +1,145 @@
+'use client';
+
 import Image from "next/image";
+import Script from "next/script";
+import dynamic from "next/dynamic";
+import venue_map from "../../image/map.jpg";
+import { useScript } from "../../hooks/useScript";
+import React, { useRef, useState, FormEvent } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  useScript("script.js");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  function addChat(palette: HTMLElement, startFrom: string, sentence: string, effect: string) {
+    const chat = document.createElement("div");
+    chat.classList.add("speech-bubble");
+    chat.classList.add(startFrom === "groom" ? "groombubble" : "bridebubble");
+    if (effect !== "") chat.classList.add(effect);
+    chat.innerText = sentence;
+    chat.style.animation = "popup 0.5s ease-out";
+    palette.appendChild(chat);
+  }
+
+  function clearChat(palette: HTMLElement) {
+    const chats = palette.getElementsByClassName("speech-bubble");
+    Array.from(chats).forEach(chat => chat.remove());
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement).value;
+    const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id || "";
+    const eNum = (form.querySelector("input[name=rsvp-number]:checked") as HTMLInputElement);
+    const num = eNum ? eNum.id : "0";
+
+    await fetch("/api/write", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, attend, num }),
+    });
+  }
+
+  async function writeStory() {
+    // Implement story writing functionality
+  }
+
+  async function getStory(event: React.MouseEvent<HTMLDivElement>) {
+    event.preventDefault();
+    const type = event.currentTarget.getAttribute("data-type") || "";
+
+    const response = await fetch("/api/story", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type }),
+    });
+    
+    const rtrn = await response.json();
+    if (rtrn.result) {
+      const data = rtrn.result;
+      const field = document.getElementById("story") as HTMLElement;
+      clearChat(field);
+      if (Array.isArray(data)) {
+        data.forEach(({ speaker, message, effect }) => {
+          setTimeout(() => addChat(field, speaker, message, effect), 500);
+        });
+      } else {
+        const { speaker, message, effect } = data;
+        addChat(field, speaker, message, effect);
+      }
+    }
+  }
+
+  return (
+    <>
+      <div className="container">
+        <div id="information">06. 14 6PM 💒 세인트메리엘 2F</div>
+        <div id="illust">
+          <div className="background">
+            <div className="door"></div>
+            <div className="rug"></div>
+          </div>
+          <div className="foreground">
+            <div id="bouncer" className="bouncer">
+              <div className="head">
+                <div className="neck"></div>
+                <div className="eye left"></div>
+                <div className="eye right"></div>
+                <div className="ear"></div>
+              </div>
+              <div className="body"></div>
+              <div className="arm"></div>
+            </div>
+            <div id="couple">
+              <div className="tag">이건호</div>
+              <div id="groom" className="character"></div>
+              <div id="bride" className="character"></div>
+              <div className="tag">전시은</div>
+            </div>
+            <div className="poles">
+              <div className="pole left"></div>
+              <div className="pole right"></div>
+              <div className="rope"></div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div id="contents">
+          <div id="menu" className="speech-bubble bridebubble">
+            <div id="btn-map">🚗</div>
+            <div id="btn-rsvp">💌</div>
+            <div id="btn-photo">📷</div>
+            <div id="btn-money">💵</div>
+            <div id="btn-story" onClick={getStory} data-type="groom">🤵</div>
+            <div id="btn-story" onClick={getStory} data-type="bride">👰</div>
+            <div id="btn-story" onClick={getStory} data-type="love">💍</div>
+            <div id="btn-write" onClick={writeStory}>✈️</div>
+          </div>
+          <div id="rsvp" className="contentbox palette">
+            <button className="close-btn">X</button>
+            <form onSubmit={handleSubmit}>
+              <div id="rsvp-attend">
+                <input type="radio" name="rsvp-attend" id="yes" />
+                <label htmlFor="yes">참석 가능해요</label>
+                <input type="radio" name="rsvp-attend" id="no" />
+                <label htmlFor="no">마음으로 함께할게요</label>
+              </div>
+              <div id="rsvp-number">
+                <input type="radio" name="rsvp-number" id="1" />
+                <label htmlFor="1">1명</label>
+                <input type="radio" name="rsvp-number" id="2" />
+                <label htmlFor="2">2명</label>
+                <input type="radio" name="rsvp-number" id="3" />
+                <label htmlFor="3">3명 이상</label>
+              </div>
+              <div id="rsvp-name">
+                <p>By.</p>
+                <input type="text" name="rsvp-name" defaultValue="성함" />
+                <input type="submit" value="💗" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
