@@ -4,7 +4,7 @@ import Image from "next/image";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 import venue_map from "../../image/map.jpg";
-import { useScript } from "../../hooks/useScript";
+import { useScript } from "../hooks/useScript";
 import React, { useRef, useState, FormEvent } from "react";
 
 export default function Home() {
