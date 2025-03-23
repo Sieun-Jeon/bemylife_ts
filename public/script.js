@@ -213,8 +213,8 @@ for (var i = 0; i < bubblyButtons.length; i++) {
   bubblyButtons[i].addEventListener('click', animateButton, false);
 }
 
-console.log(isBack);
-if( isBack )
-  enterView_noeffect();
-else 
+// console.log(isBack);
+// if( isBack )
+//   enterView_noeffect();
+// else 
   enterView();

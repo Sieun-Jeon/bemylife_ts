@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 
@@ -12,18 +12,18 @@ interface ImageWithBackProps {
 }
 
 export default function ImageWithBack({ src, alt = "image", width = 600, height = 400 }: ImageWithBackProps) {
-  const router = useRouter();
+  //const router = useRouter();
 
   return (
     <div className="relative p-4">
       <button
         onClick={() => {
-          const currentParams = router.query;
-          router.push({
-            pathname: router.pathname,
-            query: { ...currentParams, isBack: true }
-          });
-          //router.back()
+          // const currentParams = router.query;
+          // router.push({
+          //   pathname: router.pathname,
+          //   query: { ...currentParams, isBack: true }
+          // });
+//          router.back()
         }}
         className="flex items-center gap-2 text-gray-700 hover:text-black transition mb-4"
       >

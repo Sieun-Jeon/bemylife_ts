@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import Image from "next/image";
 import Script from "next/script";
 import dynamic from "next/dynamic";
@@ -9,14 +9,17 @@ import { useScript } from "../hooks/useScript";
 import React from "react";
 import Link from "next/link";
 
-var isBack;
 
+import ImageCarousel from "./component/carousel";
+
+var isBack;
 export default function Home() {
   useScript("script.js");
+  const MapImage=""
 
-  const router = useRouter();
-  // Access the query parameter 'isBack'
-  isBack = router.query['isBack'];
+  // const router = useRouter();
+  // // Access the query parameter 'isBack'
+  // isBack = router.query['isBack'];
 
   function addChat(
     palette: HTMLElement,
@@ -182,23 +185,24 @@ export default function Home() {
           </div>
           <div id="photo" className="contentbox palette">
             <button className="close-btn">X</button>
-            <div id="photoFrame">
-              <Link href="/image">
-                <button className="transition-all hover:scale-105">
-                  <span>👀</span>더 보러가기
-                </button>
-              </Link>
-            </div>
+      <div
+        style={{
+          flexGrow: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ImageCarousel></ImageCarousel>
+      </div>
           </div>
           <div id="map" className="contentbox palette">
             <button className="close-btn">X</button>
             <img
-              src="https://github.com/Sieun-Jeon/bemylife/blob/main/image/map.jpg?raw=true"
+              src="image/map.jpg"
               alt="map"
             />
             <p>강남역 1번출구에서 셔틀버스를 운행합니다</p>
-            <button>카카오맵</button>
-            <button>네이버지도</button>
           </div>
           <div id="money" className="contentbox palette">
             <button className="close-btn">X</button>
