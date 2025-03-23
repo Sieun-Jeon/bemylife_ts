@@ -12,9 +12,9 @@ export default function ImagePage() {
         flexDirection: "column",
       }}
     >
-      <div>
+      {/* <div>
         <ImageWithBack></ImageWithBack>
-      </div>
+      </div> */}
       <div
         style={{
           flexGrow: 1,
@@ -25,6 +25,6 @@ export default function ImagePage() {
       >
         <ImageCarousel></ImageCarousel>
       </div>
-    </div>
+      </div>
   );
 }
