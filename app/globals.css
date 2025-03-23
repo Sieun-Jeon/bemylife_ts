@@ -733,6 +733,9 @@ body {
   color: #fff;
   bottom: 0px;
 }
+.background-inside{
+  background-color: black;
+}
 .background-inside .door {
   display: none;
 }

@@ -1,20 +1,33 @@
-'use client';
+'use client'
 
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 import venue_map from "../../image/map.jpg";
 import { useScript } from "../hooks/useScript";
-import React, { useRef, useState, FormEvent } from "react";
+import React from "react";
+import Link from "next/link";
+
+var isBack;
 
 export default function Home() {
   useScript("script.js");
 
-  function addChat(palette: HTMLElement, startFrom: string, sentence: string, effect: string) {
+  const router = useRouter();
+  // Access the query parameter 'isBack'
+  isBack = router.query['isBack'];
+
+  function addChat(
+    palette: HTMLElement,
+    startFrom: string,
+    sentence: string,
+    effect: string
+  ) {
     const chat = document.createElement("div");
     chat.classList.add("speech-bubble");
     chat.classList.add(startFrom === "groom" ? "groombubble" : "bridebubble");
-    if (effect !== "") chat.classList.add(effect);
+    if (effect !== '') chat.classList.add(effect);
     chat.innerText = sentence;
     chat.style.animation = "popup 0.5s ease-out";
     palette.appendChild(chat);
@@ -22,16 +35,16 @@ export default function Home() {
 
   function clearChat(palette: HTMLElement) {
     const chats = palette.getElementsByClassName("speech-bubble");
-    Array.from(chats).forEach(chat => chat.remove());
+    Array.from(chats).forEach((chat) => chat.remove());
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement).value;
-    const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id || "";
-    const eNum = (form.querySelector("input[name=rsvp-number]:checked") as HTMLInputElement);
-    const num = eNum ? eNum.id : "0";
+    const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
+    const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id;
+    const eNum = form.querySelector("input[name=rsvp-number]:checked") as HTMLInputElement;
+    const num = eNum ? eNum.id : '0';
 
     await fetch("/api/write", {
       method: "POST",
@@ -40,34 +53,38 @@ export default function Home() {
     });
   }
 
-  async function writeStory() {
-    // Implement story writing functionality
-  }
-
   async function getStory(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
-    const type = event.currentTarget.getAttribute("data-type") || "";
+    const type = event.currentTarget.getAttribute("data-type");
 
     const response = await fetch("/api/story", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type }),
     });
-    
+
     const rtrn = await response.json();
     if (rtrn.result) {
       const data = rtrn.result;
-      const field = document.getElementById("story") as HTMLElement;
+      const field = document.getElementById("story");
+      if (!field) return;
+
       clearChat(field);
       if (Array.isArray(data)) {
-        data.forEach(({ speaker, message, effect }) => {
-          setTimeout(() => addChat(field, speaker, message, effect), 500);
+        data.forEach(({ speaker, message, effect }: any, index: number) => {
+          setTimeout(() => {
+            addChat(field, speaker, message, effect);
+          }, 500 * index);
         });
       } else {
         const { speaker, message, effect } = data;
         addChat(field, speaker, message, effect);
       }
     }
+  }
+
+  async function writeStory() {
+    // 비워진 함수 - 추후 구현 예정
   }
 
   return (
@@ -92,8 +109,32 @@ export default function Home() {
             </div>
             <div id="couple">
               <div className="tag">이건호</div>
-              <div id="groom" className="character"></div>
-              <div id="bride" className="character"></div>
+              <div id="groom">
+                <div className="head">
+                  <div className="hair"></div>
+                  <div className="hair-2"></div>
+                  <div className="neck"></div>
+                  <div className="eye left"></div>
+                  <div className="eye right"></div>
+                  <div className="mouth"></div>
+                  <div className="ear"></div>
+                </div>
+                <div className="body"></div>
+                <div className="arm"></div>
+              </div>
+              <div id="bride">
+                <div className="head">
+                  <div className="hair"></div>
+                  <div className="hair-2"></div>
+                  <div className="neck"></div>
+                  <div className="eye left"></div>
+                  <div className="eye right"></div>
+                  <div className="mouth"></div>
+                  <div className="ear"></div>
+                </div>
+                <div className="body"></div>
+                <div className="arm"></div>
+              </div>
               <div className="tag">전시은</div>
             </div>
             <div className="poles">
@@ -130,6 +171,7 @@ export default function Home() {
                 <label htmlFor="2">2명</label>
                 <input type="radio" name="rsvp-number" id="3" />
                 <label htmlFor="3">3명 이상</label>
+                <p>이 참석해요</p>
               </div>
               <div id="rsvp-name">
                 <p>By.</p>
@@ -138,6 +180,36 @@ export default function Home() {
               </div>
             </form>
           </div>
+          <div id="photo" className="contentbox palette">
+            <button className="close-btn">X</button>
+            <div id="photoFrame">
+              <Link href="/image">
+                <button className="transition-all hover:scale-105">
+                  <span>👀</span>더 보러가기
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div id="map" className="contentbox palette">
+            <button className="close-btn">X</button>
+            <img
+              src="https://github.com/Sieun-Jeon/bemylife/blob/main/image/map.jpg?raw=true"
+              alt="map"
+            />
+            <p>강남역 1번출구에서 셔틀버스를 운행합니다</p>
+            <button>카카오맵</button>
+            <button>네이버지도</button>
+          </div>
+          <div id="money" className="contentbox palette">
+            <button className="close-btn">X</button>
+            <div>
+              마음 전하는곳
+              <button className="bubbly-button">신랑/신부에게 보내기</button>
+              <button className="bubbly-button">신랑측에게 보내기</button>
+              <button className="bubbly-button">신부측에게 보내기</button>
+            </div>
+          </div>
+          <div id="story" className="contentbox story"></div>
         </div>
       </div>
     </>

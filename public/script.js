@@ -1,4 +1,4 @@
-let resizeTimeout;
+var resizeTimeout;
 
 function addEventOn(elementName, eventClass) {
   if (null !== document.getElementById(elementName)) {
@@ -95,7 +95,19 @@ function removeExistingStars() {
     document.getElementById("illust").removeChild(star);
   });
 }
+function enterView_noeffect(){
+  addEventOn("door", "do-not-display");
+  addEventOn("bouncer", "do-not-display");
+  addEventOn("poles", "do-not-display");
+  addEventOn("illust", "background-inside");
+  document.getElementById("couple").style.display = "flex";
+  addEventOn("information", "dark-mode");
+  placeRandomStars();
+      document.getElementById("menu").style.animation="popup 0.5s ease-out";
+     document.getElementById("menu").style.opacity = 1;
+    document.getElementById("menu").style.visibility = "visible";
 
+}
 function enterView() {
   document.getElementsByClassName("foreground").item(0).classList.add("action_open");
     setTimeout(() => {
@@ -201,11 +213,8 @@ for (var i = 0; i < bubblyButtons.length; i++) {
   bubblyButtons[i].addEventListener('click', animateButton, false);
 }
 
-
-
-
-
-
-
-
-enterView();
+console.log(isBack);
+if( isBack )
+  enterView_noeffect();
+else 
+  enterView();
