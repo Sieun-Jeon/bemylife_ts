@@ -15,7 +15,6 @@ import ImageCarousel from "./component/carousel";
 var isBack;
 export default function Home() {
   useScript("script.js");
-  const MapImage=""
 
   // const router = useRouter();
   // // Access the query parameter 'isBack'
