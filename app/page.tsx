@@ -9,7 +9,6 @@ import { useScript } from "../hooks/useScript";
 import React from "react";
 import Link from "next/link";
 
-
 import ImageCarousel from "./component/carousel";
 
 var isBack;
@@ -34,6 +33,15 @@ export default function Home() {
     chat.style.animation = "popup 0.5s ease-out";
     palette.appendChild(chat);
   }
+  function copyAcnt(type){
+    var account;
+    switch(type){
+      case "b":account="신한 110483943969 전시은";break;
+      case "g":account="grooooom";break;
+      default:account="";
+    }
+    navigator.clipboard.writeText(account);
+  }
 
   function clearChat(palette: HTMLElement) {
     const chats = palette.getElementsByClassName("speech-bubble");
@@ -54,7 +62,10 @@ export default function Home() {
       body: JSON.stringify({ name, attend, num }),
     });
   }
-
+function popConfetti()
+{
+  // confetti();
+}
   async function getStory(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
     const type = event.currentTarget.getAttribute("data-type");
@@ -85,9 +96,6 @@ export default function Home() {
     }
   }
 
-  async function writeStory() {
-    // 비워진 함수 - 추후 구현 예정
-  }
 
   return (
     <>
@@ -155,7 +163,7 @@ export default function Home() {
             <div id="btn-story" onClick={getStory} data-type="groom">🤵</div>
             <div id="btn-story" onClick={getStory} data-type="bride">👰</div>
             <div id="btn-story" onClick={getStory} data-type="love">💍</div>
-            <div id="btn-write" onClick={writeStory}>✈️</div>
+            <div id="btn-write" onClick={popConfetti}>🎉</div>
           </div>
           <div id="rsvp" className="contentbox palette">
             <button className="close-btn">X</button>
@@ -204,14 +212,13 @@ export default function Home() {
             <p>강남역 1번출구에서 셔틀버스를 운행합니다</p>
           </div>
           <div id="money" className="contentbox palette">
-            <button className="close-btn">X</button>
-            <div>
-              마음 전하는곳
-              <button className="bubbly-button">신랑/신부에게 보내기</button>
-              <button className="bubbly-button">신랑측에게 보내기</button>
-              <button className="bubbly-button">신부측에게 보내기</button>
-            </div>
+          <button class="close-btn">X</button>
+          <div>
+            마음 전하는곳
+            <button class="bubbly-button" onClick={() => copyAcnt('g')} >신랑에게 보내기</button>
+            <button class="bubbly-button" onClick={() => copyAcnt('b')} >신부에게 보내기</button>
           </div>
+        </div>
           <div id="story" className="contentbox story"></div>
         </div>
       </div>
