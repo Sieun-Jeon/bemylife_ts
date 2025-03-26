@@ -33,7 +33,7 @@ export default function Home() {
     chat.style.animation = "popup 0.5s ease-out";
     palette.appendChild(chat);
   }
-  function copyAcnt(type){
+  function copyAcnt(type:string){
     var account;
     switch(type){
       case "b":account="신한 110483943969 전시은";break;
