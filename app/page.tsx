@@ -212,11 +212,11 @@ function popConfetti()
             <p>강남역 1번출구에서 셔틀버스를 운행합니다</p>
           </div>
           <div id="money" className="contentbox palette">
-          <button class="close-btn">X</button>
+          <button className="close-btn">X</button>
           <div>
             마음 전하는곳
-            <button class="bubbly-button" onClick={() => copyAcnt('g')} >신랑에게 보내기</button>
-            <button class="bubbly-button" onClick={() => copyAcnt('b')} >신부에게 보내기</button>
+            <button className="bubbly-button" onClick={() => copyAcnt('g')} >신랑에게 보내기</button>
+            <button className="bubbly-button" onClick={() => copyAcnt('b')} >신부에게 보내기</button>
           </div>
         </div>
           <div id="story" className="contentbox story"></div>
