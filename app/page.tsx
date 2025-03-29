@@ -50,9 +50,9 @@ export default function Home() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-	document.getElementById("rsvp").classList.remove("appear-down-centered");	
-	document.getElementById("rsvp").classList.add("disappear-up-centered");
-	if (document.getElementById("couple").classList.contains("sad")) {
+	document.getElementById("rsvp")?.classList.remove("appear-down-centered");	
+	document.getElementById("rsvp")?.classList.add("disappear-up-centered");
+	if (document.getElementById("couple")?.classList.contains("sad")) {
         document.getElementById("couple").classlist.remove("sad")
       }
     const form = event.currentTarget;
