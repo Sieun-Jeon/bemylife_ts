@@ -118,7 +118,6 @@ function popConfetti()
               <div className="arm"></div>
             </div>
             <div id="couple">
-              <div className="tag">이건호</div>
               <div id="groom">
                 <div className="head">
                   <div className="hair"></div>
@@ -145,7 +144,6 @@ function popConfetti()
                 <div className="body"></div>
                 <div className="arm"></div>
               </div>
-              <div className="tag">전시은</div>
             </div>
             <div className="poles">
               <div className="pole left"></div>

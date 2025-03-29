@@ -30,11 +30,11 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: -100px;
+  top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 450px;
-  height: 450px;
+  width: 300px;
+  height: 300px;
   background: #eee8e0;
   border-radius: 50%;
   z-index: -1;
@@ -43,11 +43,11 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: -150px;
+  top: -60px;
   left: 50%;
   transform: translateX(-50%);
-  width: 550px;
-  height: 550px;
+  width: 350px;
+  height: 350px;
   background: #f3f2ee;
   border-radius: 50%;
   z-index: -2;
@@ -64,13 +64,12 @@ body {
 }
 .door {
   position: relative;
-  width: 180px;
-  height: 300px;
+  width: 150px;
+  height: 250px;
   margin: 0 auto -10px;
   background: #f3f2ee;
   border: 10cpx solid #dad2c9;
   border-radius: 3px;
-  font-size: 50px;
   line-height: 3;
   text-align: center;
   text-shadow: 0 2px #f5ae4e;
@@ -79,7 +78,7 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: 140px;
+  top: 100px;
   right: 10px;
   width: 25px;
   height: 25px;
@@ -90,7 +89,7 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: 148px;
+  top: 108px;
   right: 18px;
   width: 35px;
   height: 10px;
@@ -98,10 +97,10 @@ body {
   border-radius: 5px;
 }
 .rug {
-  width: 300px;
-  border-bottom: 150px solid #cf352c;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
+  width: 180px;
+  border-bottom: 250px solid #cf352c;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
 }
 .rug::before {
   display: block;
@@ -119,7 +118,7 @@ body {
 }
 .bouncer {
   position: relative;
-  left: 130px;
+  left: 70px;
   transition: all 1.5s;
 }
 .bouncer .head {
@@ -289,8 +288,8 @@ body {
   position: absolute;
   left: 50%;
   bottom: 0;
-  margin-bottom: 130px;
-  transform: translateX(-50%);
+  margin-bottom:30px;
+  transform: translateX(-50%) scale(0.7);
   transition: 0.5s ease-in-out;
   display: none;
   align-items: flex-end;
@@ -298,8 +297,7 @@ body {
 .tag {
   position: relative;
   width: 90px;
-  font-size: 30px;
-  padding: 0 3px 200px 3px;
+  font-size: 20px;
   color: white;
   -webkit-animation: blur-out 3s;
           animation: blur-out 3s;
@@ -597,10 +595,10 @@ body {
   background: #f5ae4e;
 }
 .poles .pole.left {
-  left: 200px;
+  left: 140px;
 }
 .poles .pole.right {
-  right: 200px;
+  right: 140px;
 }
 .poles .pole::before {
   display: block;
@@ -631,8 +629,8 @@ body {
 .poles .rope {
   position: absolute;
   top: -110px;
-  left: -218px;
-  width: 430px;
+  left: -160px;
+  width: 320px;
   height: 75px;
   border: 20px solid #cf352c;
   border-top: 0;
@@ -656,7 +654,7 @@ body {
   transform: rotate(-30deg);
 }
 .action_open .rope {
-  width: 150px;
+  width: 100px;
 }
 .action_open .eye::before {
   bottom: 10px;
@@ -684,12 +682,12 @@ body {
   margin-left: 15%;
 }
 #map {
-  width: 400px;
+  width: 200px;
   height: 250px;
   background: #fff;
 }
 #rsvp {
-  width: 400px;
+  width: 250px;
   height: 250px;
   background: #fff;
 }
@@ -1130,10 +1128,10 @@ input[type="submit"] {
   position: absolute;
   left: 8%;
   bottom: 3%;
-  font-size: 40px;
+  font-size: 30px;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 60px);
+  grid-template-columns: repeat(4, 50px);
   border-radius: 5%;
   opacity: 0;
   visibility: hidden;
