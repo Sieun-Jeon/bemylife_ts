@@ -1,4 +1,3 @@
-
 var resizeTimeout;
 
 function addEventOn(elementName, eventClass) {

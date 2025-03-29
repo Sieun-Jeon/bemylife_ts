@@ -10,7 +10,9 @@ import React from "react";
 import Link from "next/link";
 
 import ImageCarousel from "./component/carousel";
-	
+import confetti from "canvas-confetti";
+
+
 export default function Home() {
   useScript("script.js");
 
@@ -32,6 +34,12 @@ export default function Home() {
     chat.style.animation = "popup 0.5s ease-out";
     palette.appendChild(chat);
   }
+  
+  function clearChat(palette: HTMLElement) {
+    const chats = palette.getElementsByClassName("speech-bubble");
+    Array.from(chats).forEach((chat) => chat.remove());
+  }
+	
   function copyAcnt(type:string){
     var account;
     switch(type){
@@ -43,9 +51,9 @@ export default function Home() {
 	  
   }
 
-  function clearChat(palette: HTMLElement) {
-    const chats = palette.getElementsByClassName("speech-bubble");
-    Array.from(chats).forEach((chat) => chat.remove());
+  function popConfetti()
+  {
+	confetti();
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -60,6 +68,8 @@ export default function Home() {
 	if (element!==null){
 		  element.classList.remove("sad");
 	}
+	
+	confetti();
 
     const form = event.currentTarget;
     const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
@@ -73,10 +83,6 @@ export default function Home() {
       body: JSON.stringify({ name, attend, num }),
     });
   }
-function popConfetti()
-{
-	// confetti();
-}
   async function getStory(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
     const type = event.currentTarget.getAttribute("data-type");
@@ -175,7 +181,7 @@ function popConfetti()
             <div id="btn-story" onClick={getStory} data-type="groom">🤵</div>
             <div id="btn-story" onClick={getStory} data-type="bride">👰</div>
             <div id="btn-story" onClick={getStory} data-type="love">💍</div>
-            <div id="btn-write" onClick={popConfetti}>🎉</div>
+            <div id="btn-joy" onClick={popConfetti}>🎉</div>
           </div>
           <div id="rsvp" className="contentbox palette">
             <button className="close-btn">X</button>
@@ -226,12 +232,13 @@ function popConfetti()
           <div id="money" className="contentbox palette">
           <button className="close-btn">X</button>
           <div>
-            마음 전하는곳
+            마음 전하시는곳
             <button className="bubbly-button" onClick={() => copyAcnt('g')} >신랑에게 보내기</button>
             <button className="bubbly-button" onClick={() => copyAcnt('b')} >신부에게 보내기</button>
           </div>
         </div>
           <div id="story" className="contentbox story"></div>
+		  <div id="joy" className="contentbox"></div>
         </div>
       </div>
     </>

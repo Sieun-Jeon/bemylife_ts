@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "이건호, 전시은 결혼합니다💍",
+  title: "💍이건호, 전시은 결혼합니다💍",
   description: "2025.06.14 세인트메리엘 | 우리의 특별한 순간에 함께해주세요",
 };
 
