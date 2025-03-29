@@ -75,7 +75,7 @@ export default function Home() {
   }
 function popConfetti()
 {
-	confetti();
+	// confetti();
 }
   async function getStory(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
