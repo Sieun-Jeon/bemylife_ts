@@ -58,7 +58,7 @@ export default function Home() {
 	}
 	element = document.getElementById("couple");
 	if (element!==null){
-		  document.getElementById("couple").classList.remove("sad");
+		  element.classList.remove("sad");
 	}
 
     const form = event.currentTarget;
