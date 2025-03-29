@@ -66,7 +66,7 @@ body {
   position: relative;
   width: 150px;
   height: 250px;
-  margin: 0 auto -10px;
+  margin: 0 auto -5px;
   background: #f3f2ee;
   border: 10cpx solid #dad2c9;
   border-radius: 3px;
@@ -98,7 +98,7 @@ body {
 }
 .rug {
   width: 180px;
-  border-bottom: 250px solid #cf352c;
+  border-bottom: 200px solid #cf352c;
   border-left: 70px solid transparent;
   border-right: 70px solid transparent;
 }
@@ -288,19 +288,34 @@ body {
   position: absolute;
   left: 50%;
   bottom: 0;
-  margin-bottom:30px;
+  margin-bottom:-20px;
   transform: translateX(-50%) scale(0.7);
   transition: 0.5s ease-in-out;
   display: none;
   align-items: flex-end;
 }
 .tag {
-  position: relative;
-  width: 90px;
-  font-size: 20px;
-  color: white;
+  display: none;
+  position: absolute;
+  width: fit-content;
+  font-size: 15px;
+	/* margin:auto;
+	top:20%; */
+  color: rgba(256,256,256,0.8);
   -webkit-animation: blur-out 3s;
           animation: blur-out 3s;
+}
+#groomtag{
+	margin-left:10px;
+	font-size:25px;
+	bottom:200px;
+	left:15px;
+}
+#bridetag{
+	margin-right:10px;
+	font-size:25px;
+	bottom:200px;
+	right:15px;
 }
 #groom {
   position: relative;
@@ -682,30 +697,27 @@ body {
   margin-left: 15%;
 }
 #map {
-  width: 200px;
-  height: 250px;
-  background: #fff;
-}
-#rsvp {
-  width: 250px;
-  height: 250px;
-  background: #fff;
-}
-#photo {
-  background: #fff;  
+  width: 90%;
+  height: 300px;
+  background-color: rgba(256, 256, 256, 0.9);
 }
 
-#map {
-  background: #fff;
-  width: 400px;
-  height: 400px;
+#rsvp {
+  width: 250px;
+  height: 200px;
+  background-color: rgba(256, 256, 256, 0.8);
 }
+#photo {
+  background-color: rgba(256, 256, 256, 0.8);
+  width: 300px;
+}
+
 #money {
-  background: #fff;
-  padding: 8px;
+  background-color: rgba(256, 256, 256, 0.8);
+  width: 200px;
 }
 #money button {
-  vertical-allign: middle;
+  vertical-align: middle;
   display: block;
 }
 #illust {
@@ -729,9 +741,9 @@ body {
 }
 .background-inside .rug {
   width: 200px;
-  border-bottom: 300px solid #cf352c;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
+  border-bottom: 180px solid #cf352c;
+  border-left: 110px solid transparent;
+  border-right: 110px solid transparent;
 }
 .background-inside .background::before {
   content: none;
@@ -752,18 +764,18 @@ input[type="radio"] {
 label {
   display: flex;
   align-items: center;
-  margin-left: 1rem;
-  padding: 1rem 1rem 1rem 2rem;
+  margin-left: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
   position: relative;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.25, 0.25, 0.5, 1.9);
+  transition: all 0.25s cubic-bezier(0.25, 0.25, 0.5, 1);
 }
 label::before {
   content: "";
   position: absolute;
   left: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
   background: transparent;
   border: 2px solid;
   border-radius: 0.25rem;
@@ -789,6 +801,7 @@ input:checked + label::before {
 #rsvp-name {
   display: flex;
   opacity: 0;
+  margin-bottom:15px;
 }
 #rsvp-name {
   float: right;
@@ -797,6 +810,7 @@ input[type="text"] {
   border: 0;
   border-bottom: 1px solid #1d2528;
   cursor: pointer;
+  
 }
 input[type="submit"] {
   border: 0;
@@ -809,8 +823,8 @@ input[type="submit"] {
   background: #ff3b7c;
 }
 .speech-bubble {
-  max-width: 330px;
-  padding: 20px;
+  max-width: 400px;
+  padding: 10px;
   background: #eee8e0;
   white-space: normal;
   word-wrap: break-word;
@@ -957,9 +971,13 @@ input[type="submit"] {
   -webkit-animation: slideUp 0.5s ease-in forwards;
           animation: slideUp 0.5s ease-in forwards;
 }
-.appear-down-left {
+.appear-down-centered {
   -webkit-animation: slideDownCenter 0.5s ease-out forwards;
           animation: slideDownCenter 0.5s ease-out forwards;
+}
+.disappear-up-centered {
+  -webkit-animation: slideUpCenter 0.5s ease-in forwards;
+          animation: slideUpCenter 0.5s ease-in forwards;
 }
 .pop-up {
   -webkit-animation: popup 0.5s ease-out;
@@ -1090,6 +1108,26 @@ input[type="submit"] {
     transform: translateY(-100%);
   }
 }
+@-webkit-keyframes slideUpCenter {
+  from {
+    opacity: 1;
+    transform: translate(-50%,0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%,-100%);
+  }
+}
+@keyframes slideUpCenter {
+  from {
+    opacity: 1;
+    transform: translate(-50%,0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%,-100%);
+  }
+}
 @-webkit-keyframes pulse {
   0%,
   100% {
@@ -1131,14 +1169,16 @@ input[type="submit"] {
   font-size: 30px;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 50px);
+  grid-template-columns: repeat(4, 42px);
   border-radius: 5%;
   opacity: 0;
+  padding:10px;
   visibility: hidden;
 }
 #menu div {
   background: #1d2528;
-  margin: 3px;
+  margin: 2px;
+
   border-radius: 20%;
   text-align: center;
 }

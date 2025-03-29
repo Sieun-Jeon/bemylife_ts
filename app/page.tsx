@@ -10,8 +10,7 @@ import React from "react";
 import Link from "next/link";
 
 import ImageCarousel from "./component/carousel";
-
-var isBack;
+	
 export default function Home() {
   useScript("script.js");
 
@@ -41,6 +40,7 @@ export default function Home() {
       default:account="";
     }
     navigator.clipboard.writeText(account);
+	  
   }
 
   function clearChat(palette: HTMLElement) {
@@ -50,6 +50,11 @@ export default function Home() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+	document.getElementById("rsvp").classList.remove("appear-down-centered");	
+	document.getElementById("rsvp").classList.add("disappear-up-centered");
+	if (document.getElementById("couple").classList.contains("sad")) {
+        document.getElementById("couple").classlist.remove("sad")
+      }
     const form = event.currentTarget;
     const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
     const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id;
@@ -64,7 +69,7 @@ export default function Home() {
   }
 function popConfetti()
 {
-  // confetti();
+	confetti();
 }
   async function getStory(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
@@ -102,8 +107,11 @@ function popConfetti()
       <div className="container">
         <div id="information">06. 14 6PM 💒 세인트메리엘 2F</div>
         <div id="illust">
-          <div className="background">
+			<div id="groomtag" className="tag">이건호</div>
+			<div id="bridetag" className="tag">전시은</div>
+		  <div className="background">
             <div className="door"></div>
+			 
             <div className="rug"></div>
           </div>
           <div className="foreground">
@@ -178,9 +186,9 @@ function popConfetti()
                 <input type="radio" name="rsvp-number" id="2" />
                 <label htmlFor="2">2명</label>
                 <input type="radio" name="rsvp-number" id="3" />
-                <label htmlFor="3">3명 이상</label>
-                <p>이 참석해요</p>
-              </div>
+                <label htmlFor="3">3+</label>
+			</div>
+				
               <div id="rsvp-name">
                 <p>By.</p>
                 <input type="text" name="rsvp-name" defaultValue="성함" />

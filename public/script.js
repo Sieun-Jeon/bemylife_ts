@@ -1,3 +1,4 @@
+
 var resizeTimeout;
 
 function addEventOn(elementName, eventClass) {
@@ -95,19 +96,7 @@ function removeExistingStars() {
     document.getElementById("illust").removeChild(star);
   });
 }
-function enterView_noeffect(){
-  addEventOn("door", "do-not-display");
-  addEventOn("bouncer", "do-not-display");
-  addEventOn("poles", "do-not-display");
-  addEventOn("illust", "background-inside");
-  document.getElementById("couple").style.display = "flex";
-  addEventOn("information", "dark-mode");
-  placeRandomStars();
-      document.getElementById("menu").style.animation="popup 0.5s ease-out";
-     document.getElementById("menu").style.opacity = 1;
-    document.getElementById("menu").style.visibility = "visible";
 
-}
 function enterView() {
   document.getElementsByClassName("foreground").item(0).classList.add("action_open");
     setTimeout(() => {
@@ -118,6 +107,9 @@ function enterView() {
       document.getElementById("couple").style.display = "flex";
       addEventOn("information", "dark-mode");
       placeRandomStars();
+	document.querySelectorAll(".tag").forEach((item) => {
+  		item.style.display="flex";
+	});
       
       setTimeout(()=>{
         document.getElementById("menu").style.animation="popup 0.5s ease-out";
@@ -162,12 +154,6 @@ document.querySelector('input[type="text"]').addEventListener("click", () => {
   }
 });
 
-document.querySelector('input[type="submit"]').addEventListener("click", () => {
-  confetti();
-  addEventOn("rsvp", "disappear-up");
-  removeEventOn("couple", "sad");
-});
-
 
 
 
@@ -187,9 +173,9 @@ document.getElementById("menu").addEventListener("click", function (event) {
       contents.style.display = "none";
     });
    
-
-    const field = document.getElementById(elementId);      
-	addEventOn(elementId, "appear-down-left");
+    const field = document.getElementById(elementId);   
+	removeEventOn(elementId,"disappear-up-centered");
+	addEventOn(elementId, "appear-down-centered");
     field.style.opacity = 1;
     field.style.display = "block";
   }
@@ -213,8 +199,5 @@ for (var i = 0; i < bubblyButtons.length; i++) {
   bubblyButtons[i].addEventListener('click', animateButton, false);
 }
 
-// console.log(isBack);
-// if( isBack )
-//   enterView_noeffect();
-// else 
-  enterView();
+
+enterView();
