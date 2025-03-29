@@ -51,12 +51,16 @@ export default function Home() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 	let element = document.getElementById("rsvp");
+	if (element!==null)
+	{
+		element.classList.remove("appear-down-centered");
+		element.classList.add("disappear-up-centered");
+	}
+	element = document.getElementById("couple");
+	if (element!==null){
+		  document.getElementById("couple").classList.remove("sad");
+	}
 
-	document.getElementById("rsvp").classList.remove("appear-down-centered");	
-	document.getElementById("rsvp").classList.add("disappear-up-centered");
-	if (document.getElementById("couple").classList.contains("sad")) {
-        document.getElementById("couple").classList.remove("sad")
-      }
     const form = event.currentTarget;
     const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
     const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id;
