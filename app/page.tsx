@@ -31,7 +31,7 @@ export default function Home() {
     chat.classList.add(startFrom === "groom" ? "groombubble" : "bridebubble");
     if (effect !== '') chat.classList.add(effect);
     chat.innerText = sentence;
-    chat.style.animation = "popup 0.5s ease-out";
+    chat.style.animation = "popup 0.3s ease-out";
     palette.appendChild(chat);
   }
   
@@ -44,7 +44,7 @@ export default function Home() {
     var account;
     switch(type){
       case "b":account="신한 110483943969 전시은";break;
-      case "g":account="grooooom";break;
+      case "g":account="신한 110373943891 이건호";break;
       default:account="";
     }
     navigator.clipboard.writeText(account);
@@ -104,7 +104,7 @@ export default function Home() {
         data.forEach(({ speaker, message, effect }: any, index: number) => {
           setTimeout(() => {
             addChat(field, speaker, message, effect);
-          }, 500 * index);
+          }, 300 * index);
         });
       } else {
         const { speaker, message, effect } = data;
@@ -118,12 +118,11 @@ export default function Home() {
     <>
       <div className="container">
         <div id="information">06. 14 6PM 💒 세인트메리엘 2F</div>
-        <div id="illust">
+		<div id="illust">
 			<div id="groomtag" className="tag">이건호</div>
 			<div id="bridetag" className="tag">전시은</div>
 		  <div className="background">
             <div className="door"></div>
-			 
             <div className="rug"></div>
           </div>
           <div className="foreground">
