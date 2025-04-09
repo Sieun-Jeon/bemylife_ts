@@ -10,8 +10,9 @@ import React from "react";
 import Link from "next/link";
 
 import ImageCarousel from "./component/carousel";
+import confetti from "canvas-confetti";
 
-var isBack;
+
 export default function Home() {
   useScript("script.js");
 
@@ -30,26 +31,46 @@ export default function Home() {
     chat.classList.add(startFrom === "groom" ? "groombubble" : "bridebubble");
     if (effect !== '') chat.classList.add(effect);
     chat.innerText = sentence;
-    chat.style.animation = "popup 0.5s ease-out";
+    chat.style.animation = "popup 0.3s ease-out";
     palette.appendChild(chat);
   }
-  function copyAcnt(type:string){
-    var account;
-    switch(type){
-      case "b":account="신한 110483943969 전시은";break;
-      case "g":account="grooooom";break;
-      default:account="";
-    }
-    navigator.clipboard.writeText(account);
-  }
-
+  
   function clearChat(palette: HTMLElement) {
     const chats = palette.getElementsByClassName("speech-bubble");
     Array.from(chats).forEach((chat) => chat.remove());
   }
+	
+  function copyAcnt(type:string){
+    var account;
+    switch(type){
+      case "b":account="신한 110483943969 전시은";break;
+      case "g":account="신한 110373943891 이건호";break;
+      default:account="";
+    }
+    navigator.clipboard.writeText(account);
+	  
+  }
+
+  function popConfetti()
+  {
+	confetti();
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+	let element = document.getElementById("rsvp");
+	if (element!==null)
+	{
+		element.classList.remove("appear-down-centered");
+		element.classList.add("disappear-up-centered");
+	}
+	element = document.getElementById("couple");
+	if (element!==null){
+		  element.classList.remove("sad");
+	}
+	
+	confetti();
+
     const form = event.currentTarget;
     const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
     const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id;
@@ -62,10 +83,6 @@ export default function Home() {
       body: JSON.stringify({ name, attend, num }),
     });
   }
-function popConfetti()
-{
-  // confetti();
-}
   async function getStory(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
     const type = event.currentTarget.getAttribute("data-type");
@@ -87,7 +104,7 @@ function popConfetti()
         data.forEach(({ speaker, message, effect }: any, index: number) => {
           setTimeout(() => {
             addChat(field, speaker, message, effect);
-          }, 500 * index);
+          }, 300 * index);
         });
       } else {
         const { speaker, message, effect } = data;
@@ -101,8 +118,10 @@ function popConfetti()
     <>
       <div className="container">
         <div id="information">06. 14 6PM 💒 세인트메리엘 2F</div>
-        <div id="illust">
-          <div className="background">
+		<div id="illust">
+			<div id="groomtag" className="tag">이건호</div>
+			<div id="bridetag" className="tag">전시은</div>
+		  <div className="background">
             <div className="door"></div>
             <div className="rug"></div>
           </div>
@@ -118,7 +137,6 @@ function popConfetti()
               <div className="arm"></div>
             </div>
             <div id="couple">
-              <div className="tag">이건호</div>
               <div id="groom">
                 <div className="head">
                   <div className="hair"></div>
@@ -145,7 +163,6 @@ function popConfetti()
                 <div className="body"></div>
                 <div className="arm"></div>
               </div>
-              <div className="tag">전시은</div>
             </div>
             <div className="poles">
               <div className="pole left"></div>
@@ -163,7 +180,7 @@ function popConfetti()
             <div id="btn-story" onClick={getStory} data-type="groom">🤵</div>
             <div id="btn-story" onClick={getStory} data-type="bride">👰</div>
             <div id="btn-story" onClick={getStory} data-type="love">💍</div>
-            <div id="btn-write" onClick={popConfetti}>🎉</div>
+            <div id="btn-joy" onClick={popConfetti}>🎉</div>
           </div>
           <div id="rsvp" className="contentbox palette">
             <button className="close-btn">X</button>
@@ -180,9 +197,9 @@ function popConfetti()
                 <input type="radio" name="rsvp-number" id="2" />
                 <label htmlFor="2">2명</label>
                 <input type="radio" name="rsvp-number" id="3" />
-                <label htmlFor="3">3명 이상</label>
-                <p>이 참석해요</p>
-              </div>
+                <label htmlFor="3">3+</label>
+			</div>
+				
               <div id="rsvp-name">
                 <p>By.</p>
                 <input type="text" name="rsvp-name" defaultValue="성함" />
@@ -212,14 +229,15 @@ function popConfetti()
             <p>강남역 1번출구에서 셔틀버스를 운행합니다</p>
           </div>
           <div id="money" className="contentbox palette">
-          <button class="close-btn">X</button>
+          <button className="close-btn">X</button>
           <div>
-            마음 전하는곳
-            <button class="bubbly-button" onClick={() => copyAcnt('g')} >신랑에게 보내기</button>
-            <button class="bubbly-button" onClick={() => copyAcnt('b')} >신부에게 보내기</button>
+            마음 전하시는곳
+            <button className="bubbly-button" onClick={() => copyAcnt('g')} >신랑에게 보내기</button>
+            <button className="bubbly-button" onClick={() => copyAcnt('b')} >신부에게 보내기</button>
           </div>
         </div>
           <div id="story" className="contentbox story"></div>
+		  <div id="joy" className="contentbox"></div>
         </div>
       </div>
     </>

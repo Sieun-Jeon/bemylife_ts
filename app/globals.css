@@ -30,11 +30,11 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: -100px;
+  top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 450px;
-  height: 450px;
+  width: 300px;
+  height: 300px;
   background: #eee8e0;
   border-radius: 50%;
   z-index: -1;
@@ -43,11 +43,11 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: -150px;
+  top: -60px;
   left: 50%;
   transform: translateX(-50%);
-  width: 550px;
-  height: 550px;
+  width: 350px;
+  height: 350px;
   background: #f3f2ee;
   border-radius: 50%;
   z-index: -2;
@@ -64,13 +64,12 @@ body {
 }
 .door {
   position: relative;
-  width: 180px;
-  height: 300px;
-  margin: 0 auto -10px;
+  width: 150px;
+  height: 250px;
+  margin: 0 auto -5px;
   background: #f3f2ee;
   border: 10cpx solid #dad2c9;
   border-radius: 3px;
-  font-size: 50px;
   line-height: 3;
   text-align: center;
   text-shadow: 0 2px #f5ae4e;
@@ -79,7 +78,7 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: 140px;
+  top: 100px;
   right: 10px;
   width: 25px;
   height: 25px;
@@ -90,7 +89,7 @@ body {
   display: block;
   content: "";
   position: absolute;
-  top: 148px;
+  top: 108px;
   right: 18px;
   width: 35px;
   height: 10px;
@@ -98,10 +97,10 @@ body {
   border-radius: 5px;
 }
 .rug {
-  width: 300px;
-  border-bottom: 150px solid #cf352c;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
+  width: 180px;
+  border-bottom: 200px solid #cf352c;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
 }
 .rug::before {
   display: block;
@@ -119,7 +118,7 @@ body {
 }
 .bouncer {
   position: relative;
-  left: 130px;
+  left: 70px;
   transition: all 1.5s;
 }
 .bouncer .head {
@@ -289,20 +288,34 @@ body {
   position: absolute;
   left: 50%;
   bottom: 0;
-  margin-bottom: 130px;
-  transform: translateX(-50%);
+  margin-bottom:-20px;
+  transform: translateX(-50%) scale(0.7);
   transition: 0.5s ease-in-out;
   display: none;
   align-items: flex-end;
 }
 .tag {
-  position: relative;
-  width: 90px;
-  font-size: 30px;
-  padding: 0 3px 200px 3px;
-  color: white;
+  display: none;
+  position: absolute;
+  width: fit-content;
+  font-size: 15px;
+	/* margin:auto;
+	top:20%; */
+  color: rgba(256,256,256,0.8);
   -webkit-animation: blur-out 3s;
           animation: blur-out 3s;
+}
+#groomtag{
+	margin-left:10px;
+	font-size:25px;
+	bottom:200px;
+	left:15px;
+}
+#bridetag{
+	margin-right:10px;
+	font-size:25px;
+	bottom:200px;
+	right:15px;
 }
 #groom {
   position: relative;
@@ -597,10 +610,10 @@ body {
   background: #f5ae4e;
 }
 .poles .pole.left {
-  left: 200px;
+  left: 140px;
 }
 .poles .pole.right {
-  right: 200px;
+  right: 140px;
 }
 .poles .pole::before {
   display: block;
@@ -631,8 +644,8 @@ body {
 .poles .rope {
   position: absolute;
   top: -110px;
-  left: -218px;
-  width: 430px;
+  left: -160px;
+  width: 320px;
   height: 75px;
   border: 20px solid #cf352c;
   border-top: 0;
@@ -656,7 +669,7 @@ body {
   transform: rotate(-30deg);
 }
 .action_open .rope {
-  width: 150px;
+  width: 100px;
 }
 .action_open .eye::before {
   bottom: 10px;
@@ -684,30 +697,27 @@ body {
   margin-left: 15%;
 }
 #map {
-  width: 400px;
-  height: 250px;
-  background: #fff;
-}
-#rsvp {
-  width: 400px;
-  height: 250px;
-  background: #fff;
-}
-#photo {
-  background: #fff;  
+  width: 90%;
+  height: 300px;
+  background-color: rgba(256, 256, 256, 0.9);
 }
 
-#map {
-  background: #fff;
-  width: 400px;
-  height: 400px;
+#rsvp {
+  width: 250px;
+  height: 200px;
+  background-color: rgba(256, 256, 256, 0.8);
 }
+#photo {
+  background-color: rgba(256, 256, 256, 0.8);
+  width: 300px;
+}
+
 #money {
-  background: #fff;
-  padding: 8px;
+  background-color: rgba(256, 256, 256, 0.8);
+  width: 200px;
 }
 #money button {
-  vertical-allign: middle;
+  vertical-align: middle;
   display: block;
 }
 #illust {
@@ -731,9 +741,9 @@ body {
 }
 .background-inside .rug {
   width: 200px;
-  border-bottom: 300px solid #cf352c;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
+  border-bottom: 180px solid #cf352c;
+  border-left: 110px solid transparent;
+  border-right: 110px solid transparent;
 }
 .background-inside .background::before {
   content: none;
@@ -754,18 +764,18 @@ input[type="radio"] {
 label {
   display: flex;
   align-items: center;
-  margin-left: 1rem;
-  padding: 1rem 1rem 1rem 2rem;
+  margin-left: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
   position: relative;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.25, 0.25, 0.5, 1.9);
+  transition: all 0.25s cubic-bezier(0.25, 0.25, 0.5, 1);
 }
 label::before {
   content: "";
   position: absolute;
   left: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
   background: transparent;
   border: 2px solid;
   border-radius: 0.25rem;
@@ -791,6 +801,7 @@ input:checked + label::before {
 #rsvp-name {
   display: flex;
   opacity: 0;
+  margin-bottom:15px;
 }
 #rsvp-name {
   float: right;
@@ -799,6 +810,7 @@ input[type="text"] {
   border: 0;
   border-bottom: 1px solid #1d2528;
   cursor: pointer;
+  
 }
 input[type="submit"] {
   border: 0;
@@ -811,8 +823,8 @@ input[type="submit"] {
   background: #ff3b7c;
 }
 .speech-bubble {
-  max-width: 330px;
-  padding: 20px;
+  max-width: 400px;
+  padding: 10px;
   background: #eee8e0;
   white-space: normal;
   word-wrap: break-word;
@@ -959,9 +971,13 @@ input[type="submit"] {
   -webkit-animation: slideUp 0.5s ease-in forwards;
           animation: slideUp 0.5s ease-in forwards;
 }
-.appear-down-left {
+.appear-down-centered {
   -webkit-animation: slideDownCenter 0.5s ease-out forwards;
           animation: slideDownCenter 0.5s ease-out forwards;
+}
+.disappear-up-centered {
+  -webkit-animation: slideUpCenter 0.5s ease-in forwards;
+          animation: slideUpCenter 0.5s ease-in forwards;
 }
 .pop-up {
   -webkit-animation: popup 0.5s ease-out;
@@ -1092,6 +1108,26 @@ input[type="submit"] {
     transform: translateY(-100%);
   }
 }
+@-webkit-keyframes slideUpCenter {
+  from {
+    opacity: 1;
+    transform: translate(-50%,0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%,-100%);
+  }
+}
+@keyframes slideUpCenter {
+  from {
+    opacity: 1;
+    transform: translate(-50%,0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%,-100%);
+  }
+}
 @-webkit-keyframes pulse {
   0%,
   100% {
@@ -1130,17 +1166,19 @@ input[type="submit"] {
   position: absolute;
   left: 8%;
   bottom: 3%;
-  font-size: 40px;
+  font-size: 30px;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 60px);
+  grid-template-columns: repeat(4, 42px);
   border-radius: 5%;
   opacity: 0;
+  padding:10px;
   visibility: hidden;
 }
 #menu div {
   background: #1d2528;
-  margin: 3px;
+  margin: 2px;
+
   border-radius: 20%;
   text-align: center;
 }

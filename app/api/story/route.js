@@ -2,18 +2,19 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-function parseLine(randomLine) {
-  const speakerMap = { b: 'bride', g: 'groom', c: 'common' };
+let currentIndex = 0;
 
-  if (randomLine.includes('`')) {
-    const parts = randomLine.split('`');
+function parseLine(line) {
+  const speakerMap = { b: "bride", g: "groom", c: "common" };
 
-    return parts.map(item => {
+  if (line.includes("`")) {
+    const parts = line.split("`");
+    return parts.map((item) => {
       const [speaker, message, effect = ""] = item.split("|");
       return { speaker: speakerMap[speaker] || speaker, message, effect };
     });
   } else {
-    const [speaker, message, effect = ""] = randomLine.split("|");
+    const [speaker, message, effect = ""] = line.split("|");
     return { speaker: speakerMap[speaker] || speaker, message, effect };
   }
 }
@@ -38,7 +39,7 @@ export async function POST(req) {
     }
 
     const fileContent = fs.readFileSync(filePath, "utf8");
-    const lines = fileContent.split("\n").filter(line => line.trim() !== "");
+    const lines = fileContent.split("\n").filter((line) => line.trim() !== "");
 
     if (lines.length === 0) {
       return NextResponse.json(
@@ -47,10 +48,14 @@ export async function POST(req) {
       );
     }
 
-     const randomLine = lines[Math.floor(Math.random() * lines.length)];
-	  const rslt=parseLine(randomLine);
-	  
-    return NextResponse.json({ result: rslt });
+    if (currentIndex >= lines.length) {
+      currentIndex = 0;
+    }
+
+    const result = parseLine(lines[currentIndex]);
+    currentIndex++;
+
+    return NextResponse.json({ result });
   } catch (error) {
     return NextResponse.json(
       { message: "Error processing request", error: error.message },
