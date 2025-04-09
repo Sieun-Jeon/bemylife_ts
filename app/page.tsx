@@ -89,7 +89,7 @@ function showContents(event: React.MouseEvent<HTMLDivElement>){
 	event.preventDefault();
 	event.currentTarget.id;
 	var field;
-	const elementId = event.target.id.split("-")[1];
+	const elementId = event.currentTarget.id.split("-")[1];
 	    
 	document.querySelectorAll<HTMLElement>(".contentbox").forEach((box) => {
       box.style.display = "none";
