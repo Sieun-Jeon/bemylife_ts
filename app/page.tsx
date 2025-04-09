@@ -94,7 +94,7 @@ function showContents(event: React.MouseEvent<HTMLDivElement>){
 	document.querySelectorAll<HTMLElement>(".contentbox").forEach((box) => {
       box.style.display = "none";
       field = document.getElementById("story");
-      clearChat(field);
+	  if (field!=null) clearChat(field);
     });
 	field = document.getElementById(elementId);
 
