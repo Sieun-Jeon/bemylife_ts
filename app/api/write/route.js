@@ -14,9 +14,11 @@ export async function POST(req) {
       );
     }
 
-    // 서비스 계정 키 로딩
-    const credentialsPath = path.join(process.cwd(), "google-service-account.json");
-    const credentials = JSON.parse(await fs.readFile(credentialsPath, "utf8"));
+    const base64 = process.env.GOOGLE_SERVICE_ACCOUNT_BASE64;
+    if (!base64) throw new Error("Service account not found in env");
+
+    const jsonString = Buffer.from(base64, "base64").toString("utf-8");
+    const credentials = JSON.parse(jsonString);
 
     const auth = new google.auth.GoogleAuth({
       credentials,
@@ -32,7 +34,7 @@ export async function POST(req) {
       spreadsheetId,
       range,
       valueInputOption: "RAW",
-      insertDataOption: "INSERT_ROWS", // ✅ 행을 아래로 추가
+      insertDataOption: "INSERT_ROWS", 
       requestBody: {
         values: [[name, attend, num]],
       },
