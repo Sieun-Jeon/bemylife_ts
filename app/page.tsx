@@ -132,8 +132,8 @@ function hideContents(){
     const rtrn = await response.json();
     if (rtrn.result) {
       const data = rtrn.result;
-      const field = document.getElementById("story");
-      if (field && Array.isArray(data)) {
+      const field = document.getElementById("story")  as HTMLElement;
+      if (Array.isArray(data)) {
         data.forEach(({ speaker, message, effect }: any, index: number) => {
           setTimeout(() => {
             addChat(field, speaker, message, effect);
