@@ -88,15 +88,14 @@ export default function Home() {
 function showContents(event: React.MouseEvent<HTMLDivElement>){
 	event.preventDefault();
 	event.currentTarget.id;
-	const field;
 	const elementId = event.currentTarget.id.split("-")[1];
 	    
 	document.querySelectorAll<HTMLElement>(".contentbox").forEach((box) => {
       box.style.display = "none";
-      field = document.getElementById("story");
-	  clearChat(field);
+      const stories = document.getElementById("story");
+	  clearChat(stories);
     });
-	field = document.getElementById(elementId);
+	const field = document.getElementById(elementId);
 
     if (field) {
 	  field.classList.remove("disappear-up-centered");
