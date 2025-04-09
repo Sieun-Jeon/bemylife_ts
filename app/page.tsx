@@ -60,13 +60,13 @@ export default function Home() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 	let element = document.getElementById("rsvp");
-	if (element!==null)
+	if (element)
 	{
 		element.classList.remove("appear-down-centered");
 		element.classList.add("disappear-up-centered");
 	}
 	element = document.getElementById("couple");
-	if (element!==null){
+	if (element){
 		  element.classList.remove("sad");
 	}
 	
@@ -87,15 +87,15 @@ export default function Home() {
 
 function showContents(event: React.MouseEvent<HTMLDivElement>){
 	event.preventDefault();
-	event.currentTarget.id;
+	var field;
 	const elementId = event.currentTarget.id.split("-")[1];
 	    
 	document.querySelectorAll<HTMLElement>(".contentbox").forEach((box) => {
       box.style.display = "none";
-      const stories = document.getElementById("story");
-	  clearChat(stories);
+      field = document.getElementById("story");
+	  if(field) clearChat(field);
     });
-	const field = document.getElementById(elementId);
+	field = document.getElementById(elementId);
 
     if (field) {
 	  field.classList.remove("disappear-up-centered");
@@ -133,7 +133,7 @@ function hideContents(){
     if (rtrn.result) {
       const data = rtrn.result;
       const field = document.getElementById("story");
-      if (Array.isArray(data)) {
+      if (field && Array.isArray(data)) {
         data.forEach(({ speaker, message, effect }: any, index: number) => {
           setTimeout(() => {
             addChat(field, speaker, message, effect);
