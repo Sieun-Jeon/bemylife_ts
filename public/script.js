@@ -155,32 +155,6 @@ document.querySelector('input[type="text"]').addEventListener("click", () => {
 
 
 
-
-document.querySelectorAll(".contentbox").forEach((contents) => {
-  contents.querySelectorAll(".close-btn").forEach((button) => {
-    button.addEventListener("click", function () {
-      contents.style.display = "none";
-    });
-  });
-});
-
-//하단 메뉴
-document.getElementById("menu").addEventListener("click", function (event) {
-  if (event.target.tagName === "DIV") {
-    var elementId = event.target.id.split("-")[1];
-    document.querySelectorAll(".contentbox").forEach((contents) => {
-      contents.style.display = "none";
-    });
-   
-    const field = document.getElementById(elementId);   
-	removeEventOn(elementId,"disappear-up-centered");
-	addEventOn(elementId, "appear-down-centered");
-    field.style.opacity = 1;
-    field.style.display = "block";
-  }
-});
-
-
 var animateButton = function(e) {
   e.preventDefault;
   //reset animation

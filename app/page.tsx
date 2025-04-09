@@ -20,25 +20,26 @@ export default function Home() {
   // // Access the query parameter 'isBack'
   // isBack = router.query['isBack'];
 
+
   function addChat(
-    palette: HTMLElement,
-    startFrom: string,
-    sentence: string,
-    effect: string
-  ) {
-    const chat = document.createElement("div");
-    chat.classList.add("speech-bubble");
-    chat.classList.add(startFrom === "groom" ? "groombubble" : "bridebubble");
-    if (effect !== '') chat.classList.add(effect);
-    chat.innerText = sentence;
-    chat.style.animation = "popup 0.3s ease-out";
-    palette.appendChild(chat);
-  }
-  
-  function clearChat(palette: HTMLElement) {
-    const chats = palette.getElementsByClassName("speech-bubble");
-    Array.from(chats).forEach((chat) => chat.remove());
-  }
+		palette: HTMLElement,
+		startFrom: string,
+		sentence: string,
+		effect: string
+	  ) {
+		const chat = document.createElement("div");
+		chat.classList.add("speech-bubble");
+		chat.classList.add(startFrom === "groom" ? "groombubble" : "bridebubble");
+		if (effect !== '') chat.classList.add(effect);
+		chat.innerText = sentence;
+		chat.style.animation = "popup 0.3s ease-out";
+		palette.appendChild(chat);
+	  }
+
+	  function clearChat(palette: HTMLElement) {
+		const chats = palette.getElementsByClassName("speech-bubble");
+		Array.from(chats).forEach((chat) => chat.remove());
+	  }
 	
   function copyAcnt(type:string){
     var account;
@@ -83,8 +84,44 @@ export default function Home() {
       body: JSON.stringify({ name, attend, num }),
     });
   }
+
+function showContents(event: React.MouseEvent<HTMLDivElement>){
+	event.preventDefault();
+	event.currentTarget.id;
+	var field;
+	const elementId = event.target.id.split("-")[1];
+	    
+	document.querySelectorAll<HTMLElement>(".contentbox").forEach((box) => {
+      box.style.display = "none";
+      field = document.getElementById("story");
+      clearChat(field);
+    });
+	field = document.getElementById(elementId);
+
+    if (field) {
+	  field.classList.remove("disappear-up-centered");
+	  field.classList.add("appear-down-centered");
+      field.style.opacity = "1";
+      field.style.display = "block";
+    }	   
+}
+function hideContents(){
+	const contents=document.querySelectorAll<HTMLElement>(".contentbox");
+	contents.forEach((box)=>{
+		 if (box.style.display !== "none") 
+		 {
+			box.classList.remove("appear-down-centered");
+			box.classList.add("disappear-up-centered");
+		  setTimeout(() => {
+			box.style.display = "none";
+		  }, 300); 
+		 }
+	});
+}
+	
   async function getStory(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
+	  showContents(event);
     const type = event.currentTarget.getAttribute("data-type");
 
     const response = await fetch("/api/story", {
@@ -97,9 +134,6 @@ export default function Home() {
     if (rtrn.result) {
       const data = rtrn.result;
       const field = document.getElementById("story");
-      if (!field) return;
-
-      clearChat(field);
       if (Array.isArray(data)) {
         data.forEach(({ speaker, message, effect }: any, index: number) => {
           setTimeout(() => {
@@ -173,17 +207,17 @@ export default function Home() {
         </div>
         <div id="contents">
           <div id="menu" className="speech-bubble bridebubble">
-            <div id="btn-map">🚗</div>
-            <div id="btn-rsvp">💌</div>
-            <div id="btn-photo">📷</div>
-            <div id="btn-money">💵</div>
+            <div id="btn-map" onClick={showContents}>🚗</div>
+            <div id="btn-rsvp" onClick={showContents}>💌</div>
+            <div id="btn-photo" onClick={showContents}>📷</div>
+            <div id="btn-money" onClick={showContents}>💵</div>
             <div id="btn-story" onClick={getStory} data-type="groom">🤵</div>
             <div id="btn-story" onClick={getStory} data-type="bride">👰</div>
             <div id="btn-story" onClick={getStory} data-type="love">💍</div>
             <div id="btn-joy" onClick={popConfetti}>🎉</div>
           </div>
           <div id="rsvp" className="contentbox palette">
-            <button className="close-btn">X</button>
+            <button className="close-btn" onClick={hideContents}>X</button>
             <form onSubmit={handleSubmit}>
               <div id="rsvp-attend">
                 <input type="radio" name="rsvp-attend" id="yes" />
@@ -208,7 +242,7 @@ export default function Home() {
             </form>
           </div>
           <div id="photo" className="contentbox palette">
-            <button className="close-btn">X</button>
+            <button className="close-btn" onClick={hideContents}>X</button>
       <div
         style={{
           flexGrow: 1,
@@ -221,7 +255,7 @@ export default function Home() {
       </div>
           </div>
           <div id="map" className="contentbox palette">
-            <button className="close-btn">X</button>
+            <button className="close-btn" onClick={hideContents}>X</button>
             <img
               src="image/map.jpg"
               alt="map"
@@ -229,7 +263,7 @@ export default function Home() {
             <p>강남역 1번출구에서 셔틀버스를 운행합니다</p>
           </div>
           <div id="money" className="contentbox palette">
-          <button className="close-btn">X</button>
+          <button className="close-btn" onClick={hideContents}>X</button>
           <div>
             마음 전하시는곳
             <button className="bubbly-button" onClick={() => copyAcnt('g')} >신랑에게 보내기</button>
