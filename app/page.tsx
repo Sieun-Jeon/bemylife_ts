@@ -74,7 +74,7 @@ export default function Home() {
 	confetti();
 
     const form = event.currentTarget;
-    const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
+    var name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
     const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id;
     const eNum = form.querySelector("input[name=rsvp-number]:checked") as HTMLInputElement;
     const num = eNum ? eNum.id : '0';
