@@ -74,7 +74,7 @@ export default function Home() {
 	confetti();
 
     const form = event.currentTarget;
-    var name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
+    const name = (form.querySelector("input[name=rsvp-name]") as HTMLInputElement)?.value;
     const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id;
     const eNum = form.querySelector("input[name=rsvp-number]:checked") as HTMLInputElement;
     const num = eNum ? eNum.id : '0';
@@ -94,10 +94,10 @@ export default function Home() {
 	confetti();
 	const form = event.currentTarget;
     const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;
-	console.log(comment);
+
 	  
 	if (comment!==""){
-		name=guestname;
+		var name=guestname;
 		await fetch("/api/write", {
 		  method: "POST",
 		  headers: { "Content-Type": "application/json" },
