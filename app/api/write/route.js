@@ -5,14 +5,10 @@ import { google } from "googleapis";
 
 export async function POST(req) {
   try {
-    const { name, attend, num } = await req.json();
-
-    if (!name || attend === undefined || num === undefined) {
-      return NextResponse.json(
-        { message: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+    const { name, attend, num, comment } = await req.json();
+	  
+  const hasAttendData = name && attend && num;
+  const hasComment = comment;
 
     const base64 = process.env.GOOGLE_SERVICE_ACCOUNT_BASE64;
     if (!base64) throw new Error("Service account not found in env");
@@ -28,17 +24,34 @@ export async function POST(req) {
     const sheets = google.sheets({ version: "v4", auth });
 
     const spreadsheetId = "1V6sdH9aefM0NHaKtPlwg5cCTaKWXx5VZ-YTwT7i4Pcc";
-    const range = "list!A:C";
+	  
+	if (hasAttendData)
+	{
+		const range = "list!A:C";
 
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range,
-      valueInputOption: "RAW",
-      insertDataOption: "INSERT_ROWS", 
-      requestBody: {
-        values: [[name, attend, num]],
-      },
-    });
+		await sheets.spreadsheets.values.append({
+		  spreadsheetId,
+		  range,
+		  valueInputOption: "RAW",
+		  insertDataOption: "INSERT_ROWS", 
+		  requestBody: {
+			values: [[name, attend, num]],
+		  },
+		});
+			  
+	}else if (hasComment){		   
+		const range = "comment!A:B";
+
+		await sheets.spreadsheets.values.append({
+		  spreadsheetId,
+		  range,
+		  valueInputOption: "RAW",
+		  insertDataOption: "INSERT_ROWS", 
+		  requestBody: {
+			values: [[name, comment]],
+		  },
+		});
+	}
 
     return NextResponse.json({ message: "Data saved successfully!" });
   } catch (error) {

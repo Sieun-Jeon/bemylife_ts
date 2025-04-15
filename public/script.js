@@ -1,4 +1,7 @@
 var resizeTimeout;
+let startX = 0;
+let startY = 0;
+
 
 function addEventOn(elementName, eventClass) {
   if (null !== document.getElementById(elementName)) {
@@ -171,6 +174,37 @@ var bubblyButtons = document.getElementsByClassName("bubbly-button");
 for (var i = 0; i < bubblyButtons.length; i++) {
   bubblyButtons[i].addEventListener('click', animateButton, false);
 }
+
+
+
+window.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+}, { passive: false });
+
+window.addEventListener("touchmove", (e) => {
+  const deltaX = e.touches[0].clientX - startX;
+  const deltaY = e.touches[0].clientY - startY;
+
+  e.preventDefault();
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0) {
+      console.log("오른쪽으로 스와이프");
+    } else {
+      console.log("왼쪽으로 스와이프");
+    }
+  } else {
+    if (deltaY > 0) {
+      console.log("아래로 스와이프");
+    } else {
+      console.log("위로 스와이프");
+    }
+  }
+}, { passive: false });
+
+
+
 
 
 enterView();

@@ -14,6 +14,7 @@ import confetti from "canvas-confetti";
 
 
 export default function Home() {
+  var guestname="";
   useScript("script.js");
 
   // const router = useRouter();
@@ -77,12 +78,32 @@ export default function Home() {
     const attend = (form.querySelector("input[name=rsvp-attend]:checked") as HTMLInputElement)?.id;
     const eNum = form.querySelector("input[name=rsvp-number]:checked") as HTMLInputElement;
     const num = eNum ? eNum.id : '0';
-
-    await fetch("/api/write", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, attend, num }),
-    });
+	  
+	if (name!=="성함" && name!==""){
+		guestname=name;
+		await fetch("/api/write", {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify({ name, attend, num }),
+		});
+	}
+  }
+	
+  async function postLetter(event: React.FormEvent<HTMLFormElement>) {
+	event.preventDefault();
+	confetti();
+	const form = event.currentTarget;
+    const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;
+	console.log(comment);
+	  
+	if (comment!==""){
+		name=guestname;
+		await fetch("/api/write", {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify({ name, comment }),
+		});
+	}
   }
 
 function showContents(event: React.MouseEvent<HTMLDivElement>){
@@ -169,7 +190,7 @@ function hideContents(){
               <div className="body"></div>
               <div className="arm"></div>
             </div>
-            <div id="couple">
+            <div id="couple" onClick={popConfetti}>
               <div id="groom">
                 <div className="head">
                   <div className="hair"></div>
@@ -213,7 +234,7 @@ function hideContents(){
             <div id="btn-story" onClick={getStory} data-type="groom">🤵</div>
             <div id="btn-story" onClick={getStory} data-type="bride">👰</div>
             <div id="btn-story" onClick={getStory} data-type="love">💍</div>
-            <div id="btn-joy" onClick={popConfetti}>🎉</div>
+            <div id="btn-letter" onClick={popConfetti}>🎉</div>
           </div>
           <div id="rsvp" className="contentbox palette">
             <button className="close-btn" onClick={hideContents}>X</button>
@@ -270,7 +291,15 @@ function hideContents(){
           </div>
         </div>
           <div id="story" className="contentbox story"></div>
-		  <div id="joy" className="contentbox"></div>
+		  <div id="letter" className="contentbox ">
+			  <div> 저희에게 하고 싶은 말을 남겨주세요 </div>
+			<form onSubmit={postLetter}>
+              <div id="letter" className="bridebubble">
+                <input type="textbox" name="comment" />
+              </div>
+            </form>
+			
+		  </div>
         </div>
       </div>
     </>
