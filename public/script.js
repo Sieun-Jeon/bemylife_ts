@@ -190,15 +190,25 @@ window.addEventListener("touchmove", (e) => {
 
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
     if (deltaX > 0) {
-      console.log("오른쪽으로 스와이프");
+      //to right
     } else {
-      console.log("왼쪽으로 스와이프");
+      //to left
     }
   } else {
     if (deltaY > 0) {
-      console.log("아래로 스와이프");
+      //to bottom
     } else {
-      console.log("위로 스와이프");
+		const isAnyVisible = Array.from(document.querySelectorAll(".contentbox"))
+  			.some(el => el.style.display !== "none");
+		if (!isAnyVisible){
+			field = document.getElementById("photo");
+			if (field) {
+			  field.classList.remove("disappear-up-centered");
+			  field.classList.add("appear-down-centered");
+			  field.style.opacity = "1";
+			  field.style.display = "block";
+			}	   
+		}
     }
   }
 }, { passive: false });

@@ -91,11 +91,11 @@ export default function Home() {
 	
   async function postLetter(event: React.FormEvent<HTMLFormElement>) {
 	event.preventDefault();
+	hideContents();
 	confetti();
 	const form = event.currentTarget;
-    const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;
-	console.log(comment);
-	  
+    const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;7
+	 
 	if (comment!==""){
 		name=guestname;
 		await fetch("/api/write", {
@@ -234,7 +234,7 @@ function hideContents(){
             <div id="btn-story" onClick={getStory} data-type="groom">🤵</div>
             <div id="btn-story" onClick={getStory} data-type="bride">👰</div>
             <div id="btn-story" onClick={getStory} data-type="love">💍</div>
-            <div id="btn-letter" onClick={popConfetti}>🎉</div>
+            <div id="btn-letter" onClick={showContents}>📝</div>
           </div>
           <div id="rsvp" className="contentbox palette">
             <button className="close-btn" onClick={hideContents}>X</button>
@@ -292,10 +292,11 @@ function hideContents(){
         </div>
           <div id="story" className="contentbox story"></div>
 		  <div id="letter" className="contentbox ">
-			  <div> 저희에게 하고 싶은 말을 남겨주세요 </div>
+			  <div className="speech-bubble groombubble">하고 싶은 말을 남겨주세요 </div>
 			<form onSubmit={postLetter}>
-              <div id="letter" className="bridebubble">
-                <input type="textbox" name="comment" />
+              <div id="letter" className="speech-bubble bridebubble">
+                <input type="textarea" name="comment" />
+				  <input type="submit" value="✒️"/>
               </div>
             </form>
 			
