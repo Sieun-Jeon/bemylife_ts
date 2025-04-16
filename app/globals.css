@@ -729,6 +729,9 @@ body {
 #information {
   width: 100%;
 }
+#letter .speech-bubble{
+	margin-left:2em;
+}
 .dark-mode {
   color: #fff;
   bottom: 0px;
@@ -914,6 +917,44 @@ input[type="submit"] {
   -webkit-animation: bottomBubbles ease-in-out 0.75s forwards;
           animation: bottomBubbles ease-in-out 0.75s forwards;
 }
+
+.comment-box {
+  width: 200px;
+  min-height: 6em;
+  resize: none;
+  border: 2px solid #ffc0cb;
+  border-radius: 12px;
+  padding: 0.75em 1em;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: transparent;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.comment-box:focus {
+  border-color: #ff69b4;
+  box-shadow: 0 0 5px rgba(255,105,180,0.5);
+}
+
+.submit-btn {
+  background: #ff69b4;
+  border: none;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+	  display: block;
+  margin-left: auto;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #ff1493;
+}
+
 @-webkit-keyframes topBubbles {
   0% {
     background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;

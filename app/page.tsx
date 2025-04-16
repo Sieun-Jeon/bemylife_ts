@@ -1,12 +1,11 @@
 'use client'
 
-// import { useRouter } from "next/router";
 import Image from "next/image";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 import venue_map from "../../image/map.jpg";
 import { useScript } from "../hooks/useScript";
-import React from "react";
+import {React,useEffect,useState,useRef} from "react";
 import Link from "next/link";
 
 import ImageCarousel from "./component/carousel";
@@ -17,11 +16,18 @@ export default function Home() {
   var guestname="";
   useScript("script.js");
 
-  // const router = useRouter();
-  // // Access the query parameter 'isBack'
-  // isBack = router.query['isBack'];
+  const placeholders: string[] = [
+    "축하메세지를 남겨보세요💍",
+    "결혼을 한마디로 표현하면💘",
+    "결혼하면 꼭 지켜야 할 룰은?🤝"
+  ];
+const [placeholder, setPlaceholder] = useState<string>("");
+const [comment, setComment] = useState<string>("");
 
-
+const setRandomPlaceholder = () => {
+  const random = Math.floor(Math.random() * placeholders.length);
+  setPlaceholder(placeholders[random]); 
+};
   function addChat(
 		palette: HTMLElement,
 		startFrom: string,
@@ -35,12 +41,12 @@ export default function Home() {
 		chat.innerText = sentence;
 		chat.style.animation = "popup 0.3s ease-out";
 		palette.appendChild(chat);
-	  }
+  }
 
-	  function clearChat(palette: HTMLElement) {
-		const chats = palette.getElementsByClassName("speech-bubble");
-		Array.from(chats).forEach((chat) => chat.remove());
-	  }
+  function clearChat(palette: HTMLElement) {
+	const chats = palette.getElementsByClassName("speech-bubble");
+	Array.from(chats).forEach((chat) => chat.remove());
+  }
 	
   function copyAcnt(type:string){
     var account;
@@ -94,14 +100,8 @@ export default function Home() {
 	hideContents();
 	confetti();
 	const form = event.currentTarget;
-<<<<<<< HEAD
-    const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;7
-	 
-=======
-    const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;
+    // const comment = (form.querySelector("textarea[name=comment]") as HTMLInputElement)?.value;
 
-	  
->>>>>>> 3fb1418fa775a971cad099cd0c075289c4a49605
 	if (comment!==""){
 		var name=guestname;
 		await fetch("/api/write", {
@@ -110,6 +110,7 @@ export default function Home() {
 		  body: JSON.stringify({ name, comment }),
 		});
 	}
+	  setComment("");   
   }
 
 function showContents(event: React.MouseEvent<HTMLDivElement>){
@@ -129,7 +130,9 @@ function showContents(event: React.MouseEvent<HTMLDivElement>){
 	  field.classList.add("appear-down-centered");
       field.style.opacity = "1";
       field.style.display = "block";
-    }	   
+    }
+	if (elementId==="letter")
+		setRandomPlaceholder();
 }
 function hideContents(){
 	const contents=document.querySelectorAll<HTMLElement>(".contentbox");
@@ -298,14 +301,13 @@ function hideContents(){
         </div>
           <div id="story" className="contentbox story"></div>
 		  <div id="letter" className="contentbox ">
-			  <div className="speech-bubble groombubble">하고 싶은 말을 남겨주세요 </div>
-			<form onSubmit={postLetter}>
-              <div id="letter" className="speech-bubble bridebubble">
-                <input type="textarea" name="comment" />
-				  <input type="submit" value="✒️"/>
-              </div>
-            </form>
-			
+			<div className="speech-bubble bridebubble">
+				<form onSubmit={postLetter}>
+			  		<textarea name="comment" className="comment-box" placeholder={placeholder} value={comment}
+						  onChange={(e) => setComment(e.target.value)}/>
+					<input type="submit" value="✒️" className="submit-btn"/>
+            	</form>
+			</div>
 		  </div>
         </div>
       </div>

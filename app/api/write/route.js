@@ -41,7 +41,6 @@ export async function POST(req) {
 			  
 	}else if (hasComment){		   
 		const range = "comment!A:B";
-
 		await sheets.spreadsheets.values.append({
 		  spreadsheetId,
 		  range,
