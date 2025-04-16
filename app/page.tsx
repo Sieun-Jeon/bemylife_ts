@@ -94,10 +94,16 @@ export default function Home() {
 	hideContents();
 	confetti();
 	const form = event.currentTarget;
+<<<<<<< HEAD
     const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;7
 	 
+=======
+    const comment = (form.querySelector("input[name=comment]") as HTMLInputElement)?.value;
+
+	  
+>>>>>>> 3fb1418fa775a971cad099cd0c075289c4a49605
 	if (comment!==""){
-		name=guestname;
+		var name=guestname;
 		await fetch("/api/write", {
 		  method: "POST",
 		  headers: { "Content-Type": "application/json" },
