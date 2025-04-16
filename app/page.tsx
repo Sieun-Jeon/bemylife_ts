@@ -5,7 +5,7 @@ import Script from "next/script";
 import dynamic from "next/dynamic";
 import venue_map from "../../image/map.jpg";
 import { useScript } from "../hooks/useScript";
-import {React,useEffect,useState,useRef} from "react";
+import React, {useEffect,useState,useRef} from "react";
 import Link from "next/link";
 
 import ImageCarousel from "./component/carousel";
