@@ -289,7 +289,9 @@ function hideContents(){
               src="image/map.jpg"
               alt="map"
             />
-            <p>강남역 1번출구에서 셔틀버스를 운행합니다</p>
+            <p>🚌 <b>[셔틀버스]</b> 강남역 1번출구, 10분 간격 운행</p>
+			<p>🚗 <b>[주차]</b>예식장 로비에서 2시간 주차권 등록<br/> </p>
+			  <p>내부 주차장이 협소하여 만차 시 <b>역삼1동 주민센터, 푸른솔도서관, 강남주차장, 대영주차장</b> 이용을 부탁드립니다</p>
           </div>
           <div id="money" className="contentbox palette">
           <button className="close-btn" onClick={hideContents}>X</button>
