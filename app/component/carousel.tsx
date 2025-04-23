@@ -8,7 +8,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 
 const ImageCarousel = () => {
-  const images = Array.from({ length: 12 }, (_, i) => `/image/${i + 1}.jpg`);
+  const images = Array.from({ length: 10 }, (_, i) => `/image/${i + 1}.jpg`);
 
 
   return (
